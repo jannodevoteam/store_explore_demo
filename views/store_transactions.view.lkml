@@ -4,7 +4,7 @@ view: store_transactions {
 
   dimension: pk {
     primary_key: yes
-    sql: concat(cast(${store_id} as string), cast(${transaction_date_raw} as string)) ;;
+    sql: concat(cast(${store_id} as string), cast(${TABLE}.date as string)) ;;
     hidden: yes
   }
 
