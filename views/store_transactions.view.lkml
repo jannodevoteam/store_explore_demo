@@ -1,4 +1,4 @@
-view: stores_transactions {
+view: store_transactions {
 
   sql_table_name: `janno-sandbox-406508.store_demo_data.stores_transactions_1` ;;
 
@@ -9,6 +9,7 @@ view: stores_transactions {
   }
 
   dimension: store_id {
+    label: "Store ID"
     type: number
     sql: ${TABLE}.store_id ;;
   }
@@ -17,7 +18,6 @@ view: stores_transactions {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
-    datatype: date
     sql: ${TABLE}.date ;;
   }
 
@@ -26,17 +26,26 @@ view: stores_transactions {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: zip {
+    type: zipcode
+    sql: ${TABLE}.zip ;;
+    hidden: yes
+  }
+
   dimension: cust_group {
+    label: "Customer Group"
     type: number
     sql: ${TABLE}.cust_group ;;
   }
 
   dimension: shop_category {
+    label: "Shop Category"
     type: string
     sql: ${TABLE}.shop_category ;;
   }
 
   dimension: shop_type {
+    label: "Shop Type"
     type: string
     sql: ${TABLE}.shop_type ;;
   }
@@ -50,15 +59,12 @@ view: stores_transactions {
   measure: total_transactions {
     label: "# Transactions"
     description: "Total number of transactions."
-    sql: ${total_transactions} ;;
+    type: sum
+    sql: ${transactions_dim} ;;
   }
 
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
-  }
-
-  measure: count {
+  measure: store_count {
+    label: "# Stores"
     type: count_distinct
     sql: ${store_id} ;;
     value_format_name: decimal_0
