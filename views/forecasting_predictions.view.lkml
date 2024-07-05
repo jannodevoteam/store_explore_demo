@@ -4,7 +4,7 @@ view: forecasting_predictions {
 
   dimension: pk {
     primary_key: yes
-    sql: concat(cast(${store_id} as string), cast(${date_raw} as string)) ;;
+    sql: concat(cast(${store_id} as string), cast(${transaction_date_raw} as string)) ;;
     hidden: yes
   }
 
@@ -13,7 +13,8 @@ view: forecasting_predictions {
     sql: ${TABLE}.store_id ;;
   }
 
-  dimension_group: date {
+  dimension_group: transaction_date {
+    label: "Transaction "
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
