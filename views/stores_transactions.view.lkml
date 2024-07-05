@@ -31,16 +31,6 @@ view: stores_transactions {
     sql: ${TABLE}.cust_group ;;
   }
 
-  measure: total_cust_group {
-    type: sum
-    sql: ${cust_group} ;;
-  }
-
-  measure: average_cust_group {
-    type: average
-    sql: ${cust_group} ;;
-  }
-
   dimension: shop_category {
     type: string
     sql: ${TABLE}.shop_category ;;
@@ -51,19 +41,27 @@ view: stores_transactions {
     sql: ${TABLE}.shop_type ;;
   }
 
-
-
-  dimension: total_transactions {
+  dimension: transactions_dim {
+    label: "Transactions (Dim)"
     type: number
     sql: ${TABLE}.total_transactions ;;
+  }
+
+  measure: total_transactions {
+    label: "# Transactions"
+    description: "Total number of transactions."
+    sql: ${total_transactions} ;;
   }
 
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${store_id} ;;
+    value_format_name: decimal_0
   }
 
 }
