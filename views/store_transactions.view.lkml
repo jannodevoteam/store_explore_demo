@@ -10,6 +10,7 @@ view: store_transactions {
 
   dimension: store_id {
     label: "Store ID"
+    description: "Unique identifier for a store."
     type: number
     sql: ${TABLE}.store_id ;;
   }
@@ -19,10 +20,12 @@ view: store_transactions {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
-    sql: ${TABLE}.date ;;
+    sql: timestamp(${TABLE}.date) ;;
   }
 
   dimension: city {
+    label: "City"
+    description: "The city where the store is located."
     type: string
     sql: ${TABLE}.city ;;
   }
@@ -35,12 +38,14 @@ view: store_transactions {
 
   dimension: cust_group {
     label: "Customer Group"
+    description: "The group that the customer has been assigned to."
     type: number
     sql: ${TABLE}.cust_group ;;
   }
 
   dimension: shop_category {
     label: "Shop Category"
+    description: "The category the is associated with the shop."
     type: string
     sql: ${TABLE}.shop_category ;;
   }
